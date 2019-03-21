@@ -28,7 +28,15 @@ export class WriteServiceService {
     return this._http.put('/books/'+id, book);
   }
 
+  voteOnBook(id: String, book) {
+    return this._http.put('/book/'+id, book);
+  }
+
   deleteAuthor(id: String) {
     return this._http.delete('/authors/'+id);
+  }
+
+  deleteABook(id: String, index) {
+    return this._http.put('/abooks/'+id, index);
   }
 }

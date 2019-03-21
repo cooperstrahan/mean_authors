@@ -41,7 +41,16 @@ module.exports = {
   updateBook: (req, res) => {
     const ID = req.params.id;
     const DATA = req.body;
-    Author.updateOne({_id:ID}, DATA, {runValidators:true, new:true})
+    console.log(DATA);
+    console.log(DATA.index);
+    Author.findOne({_id:ID})
+      .then(author => {
+        console.log("books", author.books[DATA.index]);
+        author.books[DATA.index].votes = DATA.votes;
+        console.log(author.books[DATA.index].votes);
+        author.save();
+        console.log(author);
+      })
       .then(data => res.json(data))
       .catch(err => res.json(err));
   },
@@ -52,5 +61,20 @@ module.exports = {
       .then(data => res.json(data))
       .catch(err => res.json(err));
   },
+
+  deleteBook: (req, res) => {
+    const ID = req.params.id;
+    const DATA = req.body;
+    console.log(ID);
+    console.log(DATA);
+    Author.findOne({_id:ID})
+      .then(author => {
+        console.log(DATA.idx);
+        author.books.splice([DATA.index],1);
+        author.save();
+      })
+      .then(data => res.json(data))
+      .catch(err => res.json(err));
+  }
 
 }

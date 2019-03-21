@@ -10,13 +10,24 @@ import { WriteServiceService } from '../write-service.service';
 export class ViewAuthorComponent implements OnInit {
 
   id: "";
+
   anAuthor: any = {
     name: "",
     birthday: "",
-    books: []
+    books: [],
   }
+
   book: any = {
     title: "",
+  }
+
+  a_vote: any = {
+    index: -1,
+    votes: 0,
+  }
+
+  dBook: any = {
+    index: -1,
   }
 
   constructor(
@@ -51,6 +62,19 @@ export class ViewAuthorComponent implements OnInit {
       this.book = {title: ""}
   }
 
+  vote(title, vote, idx) {
+    this.a_vote = {
+      title: title,
+      votes: vote,
+      index: idx,
+    }
+    this._writeService.voteOnBook(this.id, this.a_vote)
+      .subscribe(data => {
+        console.log(this.a_vote);
+        this.getAuthor();
+      });
+  }
+
   goHome() {
     this._router.navigate(['/']);
   }
@@ -60,6 +84,19 @@ export class ViewAuthorComponent implements OnInit {
       .subscribe(data => {
         console.log("Deleted Author: ", data);
         this.goHome();
+      });
+  }
+
+  deleteABookFS(idx){
+    this.dBook = {
+      index: idx
+    }
+    this._writeService.deleteABook(this.id, this.dBook)
+      .subscribe(data => {
+        data = idx;
+        console.log("data", data);
+        console.log("idx",idx)
+        this.getAuthor();
       });
   }
 

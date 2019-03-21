@@ -1,8 +1,16 @@
 <p>{{anAuthor.name}} | {{anAuthor.birthday}}</p>
 <p>Books Written</p>
-<div *ngFor="let book of anAuthor.books">
-    <li>{{book.title}}</li>
-</div>
+<table *ngFor="let book of anAuthor.books; let i = index">
+    <tr>
+        <td>{{book.title}} {{i}}</td>
+        <td>{{book.votes}}</td>
+        <td>
+            <button (click)="vote(book.title, book.votes+1, i)">Vote Up</button>
+            <button (click)="vote(book.title, book.votes-1, i)">Down Vote</button>
+            <button (click)="deleteABookFS(i)">Delete</button>
+        </td>
+    </tr>   
+</table>
 
 <form (submit)="addBook()">
     <p>Add a Book!</p>

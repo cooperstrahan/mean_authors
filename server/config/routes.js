@@ -7,5 +7,7 @@ module.exports = app => {
     .post('/authors', authController.createAuthor)
     .put('/authors/:id', authController.editAuthor)
     .put('/books/:id', authController.addBook)
+    .put('/book/:id', authController.updateBook)
     .delete('/authors/:id', authController.delete)
+    .put('/abooks/:id', authController.deleteBook)
 }
