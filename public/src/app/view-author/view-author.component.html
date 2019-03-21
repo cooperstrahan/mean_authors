@@ -1,0 +1,17 @@
+<p>{{anAuthor.name}} | {{anAuthor.birthday}}</p>
+<p>Books Written</p>
+<div *ngFor="let book of anAuthor.books">
+    <li>{{book.title}}</li>
+</div>
+
+<form (submit)="addBook()">
+    <p>Add a Book!</p>
+    {{book | json}}
+    <input type="text" name="book.title" [(ngModel)]="book.title">
+    <button>Submit</button>
+</form>
+<br>
+<br>
+<button (click)="goHome()">Home</button>
+<button [routerLink]="['/edit', anAuthor._id]">Edit</button>
+<button (click)="delete(anAuthor._id)">Delete</button>
